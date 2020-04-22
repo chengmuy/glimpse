@@ -1,6 +1,6 @@
-const app = require('./app.js');
+const httpServer = require('./app.js');
 const port = 4200;
 
-app.listen(port, () => {
+httpServer.listen(port, () => {
   console.log(`Glimpse is listening on port ${port}`);
 });
