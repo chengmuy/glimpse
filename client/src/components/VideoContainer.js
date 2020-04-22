@@ -5,7 +5,7 @@ const VideoContainer = () => {
   return (
     <div>
       <Participant participantId="remote" />
-      <Participant participantId="local" isMuted={true} />
+      <Participant participantId="local" isMuted={true} isSelf />
     </div>
   );
 };
