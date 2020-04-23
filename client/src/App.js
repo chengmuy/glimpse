@@ -4,6 +4,7 @@ import socket from './socket';
 import UserList from './components/UserList';
 import VideoContainer from './components/VideoContainer';
 import Controls from './components/game/Controls';
+import TeamList from './components/game/TeamList';
 
 function App() {
   const [sessionId, setSessionId] = React.useState('');
@@ -44,6 +45,7 @@ function App() {
       <UserList userList={userList} />
       <VideoContainer />
       <Controls />
+      <TeamList teams={gameState.teams} ownId={sessionId} />
     </div>
   );
 }
