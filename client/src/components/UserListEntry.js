@@ -1,7 +1,7 @@
 import React from 'react';
 
-const UserListEntry = ({ username, userId }) => {
-  return <li>{`${username}, (${userId})`}</li>;
+const UserListEntry = ({ username = 'anonymous', id }) => {
+  return <li>{`${username}, (${id})`}</li>;
 };
 
 export default UserListEntry;

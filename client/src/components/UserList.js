@@ -6,7 +6,7 @@ const UserList = ({ userList }) => {
     <div>
       <ul>
         {userList.map(({ name, id }) => (
-          <UserListEntry username={name} userId={id} />
+          <UserListEntry username={name} id={id} key={id} />
         ))}
       </ul>
     </div>

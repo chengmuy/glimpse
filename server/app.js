@@ -20,31 +20,29 @@ app.use(morgan('dev'));
 // });
 
 io.on('connection', (socket) => {
-  console.log(`socket ${socket.id} connected`);
-
-  const existingSocket = activeSockets.find((s) => s === socket.id);
+  const existingSocket = activeSockets.find((s) => s.id === socket.id);
 
   if (!existingSocket) {
-    activeSockets.push(socket.id);
+    activeSockets.push({ id: socket.id });
 
     // tell socket about all active sockets
     socket.emit('addUsers', {
-      users: activeSockets.filter((s) => s !== socket.id),
+      users: activeSockets.filter((s) => s.id !== socket.id),
     });
 
     // tell all *other* sockets that socket has connected
-    socket.broadcast.emit('addUsers', { users: [socket.id] });
+    socket.broadcast.emit('addUsers', { users: [{ id: socket.id }] });
   }
+  console.log(`socket ${socket.id} connected, ${activeSockets.length} active connections`);
 
   // handle disconnect
   socket.on('disconnect', () => {
-    console.log(`socket ${socket.id} disconnected`);
-
     // update active sockets
-    activeSockets = activeSockets.filter((s) => s !== socket.id);
+    activeSockets = activeSockets.filter((s) => s.id !== socket.id);
+    console.log(`socket ${socket.id} disconnected, ${activeSockets.length} active connections`);
 
     // tell all *other* sockets that socket disconnected
-    socket.broadcast.emit('removeUser', { socketId: socket.id });
+    socket.broadcast.emit('removeUser', { id: socket.id });
   });
 });
 
