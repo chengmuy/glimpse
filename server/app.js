@@ -22,6 +22,7 @@ app.use(morgan('dev'));
 io.on('connection', (socket) => {
   const existingSocket = activeSockets.find((s) => s.id === socket.id);
 
+  // handle connect
   if (!existingSocket) {
     activeSockets.push({ id: socket.id });
 
@@ -43,6 +44,12 @@ io.on('connection', (socket) => {
 
     // tell all *other* sockets that socket disconnected
     socket.broadcast.emit('removeUser', { id: socket.id });
+  });
+
+  // handle call
+  socket.on('callUser', ({ offer, to }) => {
+    console.log(`calling user ${to} with offer `, offer);
+    socket.to(to).emit('callUser', { offer, from: socket.id });
   });
 });
 

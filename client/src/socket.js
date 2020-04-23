@@ -13,7 +13,7 @@ const makeCall = async (socketId) => {
 
   socket.emit('callUser', {
     offer,
-    id: socketId,
+    to: socketId,
   });
 };
 
