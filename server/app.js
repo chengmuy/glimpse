@@ -28,12 +28,12 @@ io.on('connection', (socket) => {
     activeSockets.push(socket.id);
 
     // tell socket about all active sockets
-    socket.emit('updateUserList', {
+    socket.emit('addUsers', {
       users: activeSockets.filter((s) => s !== socket.id),
     });
 
     // tell all *other* sockets that socket has connected
-    socket.broadcast.emit('updateUserList', { users: [socket.id] });
+    socket.broadcast.emit('addUsers', { users: [socket.id] });
   }
 
   // handle disconnect
@@ -44,7 +44,7 @@ io.on('connection', (socket) => {
     activeSockets = activeSockets.filter((s) => s !== socket.id);
 
     // tell all *other* sockets that socket disconnected
-    socket.broadcast.emit('disconnectUser', { socketId: socket.id });
+    socket.broadcast.emit('removeUser', { socketId: socket.id });
   });
 });
 
