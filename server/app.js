@@ -47,15 +47,15 @@ io.on('connection', (socket) => {
   });
 
   // handle call
-  socket.on('callUser', ({ offer, to }) => {
-    console.log(`${socket.id} calling user ${to}`);
-    socket.to(to).emit('callUser', { offer, from: socket.id });
+  socket.on('callUser', ({ offer, callee }) => {
+    console.log(`${socket.id} calling user ${callee}`);
+    socket.to(callee).emit('callUser', { offer, caller: socket.id });
   });
 
   // handle user
-  socket.on('answerUser', ({ answer, to }) => {
-    console.log(`${socket.id} answering user ${to}`);
-    socket.to(to).emit('answerUser', { answer, from: socket.id });
+  socket.on('answerUser', ({ answer, caller }) => {
+    console.log(`${socket.id} answering user ${caller}`);
+    socket.to(caller).emit('answerUser', { answer, from: socket.id });
   });
 });
 
