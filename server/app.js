@@ -3,6 +3,7 @@ const express = require('express');
 const morgan = require('morgan');
 const socketIO = require('socket.io');
 const { createServer } = require('http');
+const { generateWord } = require('./wordGenerator');
 
 const app = express();
 const httpServer = createServer(app);
