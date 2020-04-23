@@ -6,6 +6,7 @@ import VideoContainer from './components/VideoContainer';
 import Controls from './components/game/Controls';
 import TeamList from './components/game/TeamList';
 import WordDisplay from './components/game/WordDisplay';
+import Chat from './components/game/Chat';
 
 function App() {
   const [sessionId, setSessionId] = React.useState('');
@@ -16,6 +17,7 @@ function App() {
     actor: { id: '' },
   });
   const [word, setWord] = React.useState(null);
+  const [chatList, setChatList] = React.useState([]);
 
   useEffect(() => {
     console.log('useEffect');
@@ -53,6 +55,7 @@ function App() {
       <VideoContainer />
       <Controls gameStatus={gameState.status} />
       {gameState.actor.id === sessionId && <WordDisplay word={word} />}
+      <Chat chatList={chatList} />
       <TeamList teams={gameState.teams} ownId={sessionId} actorId={gameState.actor.id} />
     </div>
   );
