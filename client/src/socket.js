@@ -31,4 +31,13 @@ socket.on('answerUser', async ({ answer, callee }) => {
   await peerConnection.setRemoteDescription(new RTCSessionDescription(answer));
 });
 
-export { socket as default, makeCall };
+peerConnection.ontrack = function ({ streams: [stream] }) {
+  console.log(`ontrack invoked`);
+  const remoteVideo = document.getElementById('remote-video');
+  if (remoteVideo) {
+    console.log('remote video found');
+    remoteVideo.srcObject = stream;
+  }
+};
+
+export { socket as default, makeCall, peerConnection };

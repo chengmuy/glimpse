@@ -1,5 +1,6 @@
 import React from 'react';
 import Participant from './Participant';
+import { peerConnection } from '../socket';
 
 class VideoContainer extends React.Component {
   constructor(props) {
@@ -11,7 +12,10 @@ class VideoContainer extends React.Component {
   componentDidMount() {
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
-      .then((stream) => this.setState({ localStream: stream }))
+      .then((stream) => {
+        this.setState({ localStream: stream });
+        stream.getTracks().forEach((track) => peerConnection.addTrack(track, stream));
+      })
       .catch((err) => console.error(err));
   }
 
