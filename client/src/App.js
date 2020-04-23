@@ -14,6 +14,7 @@ function App() {
     teams: { red: [], blue: [] },
     actor: { id: '' },
   });
+  const [word, setWord] = React.useState(null);
 
   useEffect(() => {
     console.log('useEffect');
@@ -32,6 +33,11 @@ function App() {
     socket.on('gameUpdate', (updatedGameState) => {
       console.log('gameUpdate with state ', updatedGameState);
       setGameState((gameState) => ({ ...gameState, ...updatedGameState }));
+    });
+
+    socket.on('wordUpdate', ({ word }) => {
+      console.log('wordUpdate with word ', word);
+      setWord(word);
     });
   }, []);
 

@@ -10,12 +10,12 @@ const httpServer = createServer(app);
 const io = socketIO(httpServer);
 
 let gs = {};
+let hiddenState = { word: null };
 resetGame();
 
 let activeUsers = [];
 let serverSockets = io.sockets.sockets;
 
-console.log(path.join(__dirname, '../client/build/static'));
 app.use(express.static(path.join(__dirname, '../client/build/')));
 
 app.use(morgan('dev'));
@@ -66,9 +66,11 @@ io.on('connection', (socket) => {
     resetGame();
     // initialize game
     initializeGame(socket.id);
-    console.log(gs);
+    console.log('gameState: ', gs);
+    console.log('hiddenState: ', hiddenState);
     // broadcast to all sockets
     io.emit('gameUpdate', gs);
+    io.to(gs.actor.id).emit('wordUpdate', hiddenState);
 
     // assign to rooms
   });
@@ -78,6 +80,7 @@ io.on('connection', (socket) => {
 
 function resetGame() {
   gs = { status: 'not-started', teams: { red: [], blue: [] }, actor: null };
+  hiddenState = { word: null };
 }
 
 function initializeGame(actorId) {
@@ -87,6 +90,7 @@ function initializeGame(actorId) {
     blue: activeUsers.filter((_, ind) => ind % 2 === 1),
   };
   gs.actor = activeUsers.find((u) => u.id === actorId);
+  hiddenState.word = generateWord();
 }
 
 module.exports = httpServer;
