@@ -12,7 +12,7 @@ function App() {
   const [gameState, setGameState] = React.useState({
     status: 'not-started',
     teams: { red: [], blue: [] },
-    actor: null,
+    actor: { id: '' },
   });
 
   useEffect(() => {
@@ -44,8 +44,8 @@ function App() {
       </header>
       <UserList userList={userList} />
       <VideoContainer />
-      <Controls />
-      <TeamList teams={gameState.teams} ownId={sessionId} />
+      <Controls gameStatus={gameState.status} />
+      <TeamList teams={gameState.teams} ownId={sessionId} actorId={gameState.actor.id} />
     </div>
   );
 }

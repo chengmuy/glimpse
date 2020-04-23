@@ -5,7 +5,10 @@ class Controls extends React.Component {
   render() {
     return (
       <div>
-        <button onClick={startGame}>Start Game</button>
+        <span>
+          <button onClick={startGame}>Start Game</button>
+        </span>
+        <span>Game Status: {this.props.gameStatus}</span>
       </div>
     );
   }

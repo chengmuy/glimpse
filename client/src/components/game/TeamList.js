@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TeamList = ({ teams, ownId }) => {
+const TeamList = ({ teams, ownId, actorId }) => {
   return (
     <div>
       Players:
@@ -9,7 +9,10 @@ const TeamList = ({ teams, ownId }) => {
           {teamName.charAt(0).toUpperCase() + teamName.slice(1) + ':'}
           <ul>
             {teams[teamName].map(({ id, name = 'anonymous' }) => (
-              <li key={id}>{id === ownId ? 'you' : `${name}, (${id})`}</li>
+              <li key={id}>
+                {id === ownId ? 'you' : `${name}, (${id})`}
+                {id === actorId ? ' ***' : ''}
+              </li>
             ))}
           </ul>
         </div>
