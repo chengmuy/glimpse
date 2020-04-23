@@ -5,6 +5,7 @@ import UserList from './components/UserList';
 import VideoContainer from './components/VideoContainer';
 import Controls from './components/game/Controls';
 import TeamList from './components/game/TeamList';
+import WordDisplay from './components/game/WordDisplay';
 
 function App() {
   const [sessionId, setSessionId] = React.useState('');
@@ -51,6 +52,7 @@ function App() {
       <UserList userList={userList} />
       <VideoContainer />
       <Controls gameStatus={gameState.status} />
+      {gameState.actor.id === sessionId && <WordDisplay word={word} />}
       <TeamList teams={gameState.teams} ownId={sessionId} actorId={gameState.actor.id} />
     </div>
   );
