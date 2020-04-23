@@ -55,7 +55,7 @@ io.on('connection', (socket) => {
   // handle user
   socket.on('answerUser', ({ answer, caller }) => {
     console.log(`${socket.id} answering user ${caller}`);
-    socket.to(caller).emit('answerUser', { answer, from: socket.id });
+    socket.to(caller).emit('answerUser', { answer, callee: socket.id });
   });
 });
 

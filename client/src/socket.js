@@ -5,6 +5,7 @@ const socket = window.io.connect('localhost:4200');
 
 const { RTCPeerConnection, RTCSessionDescription } = window;
 const peerConnection = new RTCPeerConnection();
+let isAlreadyCalling = false;
 
 const makeCall = async (socketId) => {
   console.log(`calling ${socketId}`);
@@ -29,6 +30,11 @@ socket.on('callUser', async ({ offer, caller }) => {
 
 socket.on('answerUser', async ({ answer, callee }) => {
   await peerConnection.setRemoteDescription(new RTCSessionDescription(answer));
+
+  if (!isAlreadyCalling) {
+    isAlreadyCalling = true;
+    makeCall(callee);
+  }
 });
 
 peerConnection.ontrack = function ({ streams: [stream] }) {
