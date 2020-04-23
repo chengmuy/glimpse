@@ -20,6 +20,8 @@ function App() {
     });
   }, []);
 
+  console.log('render app');
+
   return (
     <div className="App">
       <header className="App-header">
