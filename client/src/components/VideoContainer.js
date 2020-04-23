@@ -22,7 +22,7 @@ class VideoContainer extends React.Component {
   render() {
     console.log('render VideoContainer');
     return (
-      <div>
+      <div style={{ display: 'flex' }}>
         <Participant participantId="remote" />
         <Participant participantId="local" isSelf stream={this.state.localStream} />
       </div>

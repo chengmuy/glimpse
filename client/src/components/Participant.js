@@ -51,7 +51,6 @@ class Participant extends React.Component {
     console.log('render Participant');
     return (
       <div>
-        Participant
         <video
           ref={this.videoRef}
           autoPlay
