@@ -8,39 +8,40 @@ const app = express();
 const httpServer = createServer(app);
 const io = socketIO(httpServer);
 
-let activeSockets = [];
+let gs = {};
+resetGame();
+
+let activeUsers = [];
+let serverSockets = io.sockets.sockets;
 
 console.log(path.join(__dirname, '../client/build/static'));
 app.use(express.static(path.join(__dirname, '../client/build/')));
 
 app.use(morgan('dev'));
 
-// app.get('/', (req, res) => {
-//   res.send('hello world');
-// });
-
 io.on('connection', (socket) => {
-  const existingSocket = activeSockets.find((s) => s.id === socket.id);
+  const existingSocket = activeUsers.find((s) => s.id === socket.id);
 
   // handle connect
   if (!existingSocket) {
-    activeSockets.push({ id: socket.id });
+    activeUsers.push({ id: socket.id });
 
     // tell socket about all active sockets
     socket.emit('addUsers', {
-      users: activeSockets.filter((s) => s.id !== socket.id),
+      users: activeUsers.filter((s) => s.id !== socket.id),
     });
 
     // tell all *other* sockets that socket has connected
     socket.broadcast.emit('addUsers', { users: [{ id: socket.id }] });
   }
-  console.log(`socket ${socket.id} connected, ${activeSockets.length} active connections`);
+  socket.emit('id', socket.id);
+  console.log(`socket ${socket.id} connected, ${activeUsers.length} active connections`);
 
   // handle disconnect
   socket.on('disconnect', () => {
     // update active sockets
-    activeSockets = activeSockets.filter((s) => s.id !== socket.id);
-    console.log(`socket ${socket.id} disconnected, ${activeSockets.length} active connections`);
+    activeUsers = activeUsers.filter((u) => u.id !== socket.id);
+    console.log(`socket ${socket.id} disconnected, ${activeUsers.length} active connections`);
 
     // tell all *other* sockets that socket disconnected
     socket.broadcast.emit('removeUser', { id: socket.id });
@@ -57,6 +58,34 @@ io.on('connection', (socket) => {
     console.log(`${socket.id} answering user ${caller}`);
     socket.to(caller).emit('answerUser', { answer, callee: socket.id });
   });
+
+  socket.on('startGame', () => {
+    console.log('startGame received');
+    // reset game state
+    resetGame();
+    // initialize game
+    initializeGame(socket.id);
+    console.log(gs);
+    // broadcast to all sockets
+    io.emit('gameUpdate', gs);
+
+    // assign to rooms
+  });
+
+  // applyGameHandlers(socket);
 });
+
+function resetGame() {
+  gs = { status: 'not-started', teams: { red: [], blue: [] }, actor: null };
+}
+
+function initializeGame(actorId) {
+  gs.status = 'active';
+  gs.teams = {
+    red: activeUsers.filter((_, ind) => ind % 2 === 0),
+    blue: activeUsers.filter((_, ind) => ind % 2 === 1),
+  };
+  gs.actor = activeUsers.find((u) => u.id === actorId);
+}
 
 module.exports = httpServer;

@@ -3,20 +3,34 @@ import socket from './socket';
 
 import UserList from './components/UserList';
 import VideoContainer from './components/VideoContainer';
+import Controls from './components/game/Controls';
 
 function App() {
+  const [sessionId, setSessionId] = React.useState('');
   const [userList, setUserList] = React.useState([]);
+  const [gameState, setGameState] = React.useState({
+    status: 'not-started',
+    teams: { red: [], blue: [] },
+    actor: null,
+  });
 
   useEffect(() => {
     console.log('useEffect');
 
     // set up socket event listeners
+    socket.on('id', (id) => setSessionId(id));
+
     socket.on('addUsers', ({ users }) => {
       setUserList((userList) => [...userList, ...users]);
     });
 
     socket.on('removeUser', ({ id }) => {
       setUserList((userList) => userList.filter((user) => user.id !== id));
+    });
+
+    socket.on('gameUpdate', (updatedGameState) => {
+      console.log('gameUpdate with state ', updatedGameState);
+      setGameState((gameState) => ({ ...gameState, ...updatedGameState }));
     });
   }, []);
 
@@ -29,6 +43,7 @@ function App() {
       </header>
       <UserList userList={userList} />
       <VideoContainer />
+      <Controls />
     </div>
   );
 }

@@ -46,4 +46,8 @@ peerConnection.ontrack = function ({ streams: [stream] }) {
   }
 };
 
-export { socket as default, makeCall, peerConnection };
+const startGame = () => {
+  socket.emit('startGame');
+};
+
+export { socket as default, makeCall, peerConnection, startGame };
