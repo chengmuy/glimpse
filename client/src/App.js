@@ -3,7 +3,6 @@ import socket from './socket';
 
 import UserList from './components/UserList';
 import VideoContainer from './components/VideoContainer';
-import RTC from './rtc';
 
 function App() {
   const [userList, setUserList] = React.useState([]);

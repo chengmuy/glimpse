@@ -48,8 +48,14 @@ io.on('connection', (socket) => {
 
   // handle call
   socket.on('callUser', ({ offer, to }) => {
-    console.log(`calling user ${to} with offer `, offer);
+    console.log(`${socket.id} calling user ${to}`);
     socket.to(to).emit('callUser', { offer, from: socket.id });
+  });
+
+  // handle user
+  socket.on('answerUser', ({ answer, to }) => {
+    console.log(`${socket.id} answering user ${to}`);
+    socket.to(to).emit('answerUser', { answer, from: socket.id });
   });
 });
 
