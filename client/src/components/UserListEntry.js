@@ -1,7 +1,8 @@
 import React from 'react';
+import { makeCall } from '../socket';
 
 const UserListEntry = ({ username = 'anonymous', id }) => {
-  return <li>{`${username}, (${id})`}</li>;
+  return <li onClick={() => makeCall(id)}>{`${username}, (${id})`}</li>;
 };
 
 export default UserListEntry;

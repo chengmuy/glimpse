@@ -1,16 +1,17 @@
 import React, { useEffect } from 'react';
-import socketIOClient from 'socket.io-client';
+import socket from './socket';
 
 import UserList from './components/UserList';
 import VideoContainer from './components/VideoContainer';
+import RTC from './rtc';
 
 function App() {
   const [userList, setUserList] = React.useState([]);
 
   useEffect(() => {
     console.log('useEffect');
-    const socket = socketIOClient('localhost:4200');
 
+    // set up socket event listeners
     socket.on('addUsers', ({ users }) => {
       setUserList((userList) => [...userList, ...users]);
     });
