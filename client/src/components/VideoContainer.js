@@ -23,13 +23,17 @@ class VideoContainer extends React.Component {
       setRemoteStream(stream);
     };
 
-    navigator.mediaDevices
-      .getUserMedia({ video: true, audio: true })
-      .then((stream) => {
-        this.setState({ localStream: stream });
-        stream.getTracks().forEach((track) => peerConnection.addTrack(track, stream));
-      })
-      .catch((err) => console.error(err));
+    if (navigator.mediaDevices) {
+      navigator.mediaDevices
+        .getUserMedia({ video: true, audio: true })
+        .then((stream) => {
+          this.setState({ localStream: stream });
+          stream.getTracks().forEach((track) => peerConnection.addTrack(track, stream));
+        })
+        .catch((err) => console.error(err));
+    } else {
+      alert('Please reload with https');
+    }
   }
 
   render() {

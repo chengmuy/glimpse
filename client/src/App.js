@@ -63,12 +63,24 @@ class App extends React.Component {
   // here
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1>Glimpse</h1>
-        </header>
-        <UserList userList={this.state.userList} />
-        <VideoContainer />
+      <div className="is-family-custom">
+        <section className="hero is-info is-bold">
+          <header className="hero-body">
+            <div className="container">
+              <h1 class="title is-1">Glimpse</h1>
+              <h2 class="subtitle">Did you catch that?</h2>
+            </div>
+          </header>
+        </section>
+        {/* <nav className="navbar is-primary is-bold">
+          <div className="container">
+            <h1 class="navbar-brand title">Glimpse</h1>
+          </div>
+        </nav> */}
+        <section>
+          <UserList userList={this.state.userList} />
+          <VideoContainer />
+        </section>
         <Controls gameStatus={this.state.gameState.status} />
         {this.state.gameState.actor.id === this.state.sessionId && <WordDisplay word={this.state.word} />}
         {this.state.gameState.winner && (
