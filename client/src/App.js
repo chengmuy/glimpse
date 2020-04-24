@@ -34,6 +34,11 @@ function App() {
       setUserList((userList) => userList.filter((user) => user.id !== id));
     });
 
+    socket.on('gameRefresh', (newGameState) => {
+      console.log('gameUpdate with state ', newGameState);
+      setGameState(newGameState);
+    });
+
     socket.on('gameUpdate', (updatedGameState) => {
       console.log('gameUpdate with state ', updatedGameState);
       setGameState((gameState) => ({ ...gameState, ...updatedGameState }));

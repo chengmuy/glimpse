@@ -70,7 +70,7 @@ io.on('connection', (socket) => {
     console.log('gameState: ', gs);
     console.log('hiddenState: ', hiddenState);
     // broadcast to all sockets
-    io.emit('gameUpdate', gs);
+    io.emit('gameRefresh', gs);
     io.to(gs.actor.id).emit('wordUpdate', hiddenState);
 
     // assign to rooms
