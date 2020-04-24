@@ -1,7 +1,11 @@
 import React from 'react';
 
-const ChatEntry = () => {
-  return <div>ChatEntry</div>;
+const ChatEntry = ({ text, userId, ownId }) => {
+  return (
+    <div>
+      <span>{userId === ownId ? 'me' : userId.slice(0, 5)}</span>: <span>{text}</span>
+    </div>
+  );
 };
 
 export default ChatEntry;

@@ -60,7 +60,7 @@ function App() {
       <VideoContainer />
       <Controls gameStatus={gameState.status} />
       {gameState.actor.id === sessionId && <WordDisplay word={word} />}
-      <Chat chatList={chatList} />
+      <Chat chatList={chatList} ownId={sessionId} />
       <TeamList teams={gameState.teams} ownId={sessionId} actorId={gameState.actor.id} />
     </div>
   );
