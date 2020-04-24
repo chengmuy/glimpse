@@ -18,16 +18,9 @@ class VideoContainer extends React.Component {
     const setRemoteStream = this.setRemoteStream.bind(this);
     peerConnection.ontrack = function (rtcTrackEvent) {
       console.log(`ontrack invoked`);
-      // console.log(stream);
       let stream = rtcTrackEvent.streams[0];
 
-      // this.setState({ remoteStream: stream });
       setRemoteStream(stream);
-      // const remoteVideo = document.getElementById('remote-video');
-      // if (remoteVideo) {
-      //   console.log('remote video found');
-      //   remoteVideo.srcObject = rtcTrackEvent.streams[0];
-      // }
     };
 
     navigator.mediaDevices
