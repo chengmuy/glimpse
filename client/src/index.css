@@ -6,6 +6,17 @@ video {
 .is-family-custom {
   font-family: 'Covered By Your Grace', cursive, sans-serif;
 }
+
+.hero-body {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.section {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
 .section-heading {
   text-align: center;
   margin-top: 1em;
@@ -14,4 +25,17 @@ video {
 
 html {
   font-size: 20px;
+}
+
+#remote-video {
+  max-height: 400px;
+}
+
+#local-video {
+  max-height: 200px;
+}
+
+#chatArea {
+  height: 200px;
+  overflow-y: auto;
 }

@@ -13,7 +13,7 @@ class Controls extends React.Component {
         <div className="columns has-text-centered">
           <div className="column is-paddingless">
             <button
-              className="button is-rounded is-family-custom"
+              className="button is-rounded is-family-custom is-success"
               onClick={(e) => {
                 e.preventDefault();
                 startGame();
