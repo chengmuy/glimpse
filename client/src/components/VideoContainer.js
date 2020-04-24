@@ -37,11 +37,15 @@ class VideoContainer extends React.Component {
   }
 
   render() {
-    console.log('render VideoContainer');
+    // console.log('render VideoContainer');
     return (
-      <div style={{ display: 'flex' }}>
-        <Participant participantId="remote" stream={this.state.remoteStream} />
-        <Participant participantId="local" isSelf stream={this.state.localStream} />
+      <div className="columns">
+        <div className="column">
+          <Participant participantId="remote" stream={this.state.remoteStream} />
+        </div>
+        <div className="column is-4">
+          <Participant participantId="local" isSelf stream={this.state.localStream} />
+        </div>
       </div>
     );
   }

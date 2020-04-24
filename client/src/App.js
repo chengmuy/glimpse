@@ -72,15 +72,19 @@ class App extends React.Component {
             </div>
           </header>
         </section>
-        {/* <nav className="navbar is-primary is-bold">
+        <section className="section">
           <div className="container">
-            <h1 class="navbar-brand title">Glimpse</h1>
+            <div className="columns">
+              <div className="column is-10">
+                <VideoContainer />
+              </div>
+              <div className="column is-2">
+                <UserList userList={this.state.userList} />
+              </div>
+            </div>
           </div>
-        </nav> */}
-        <section>
-          <UserList userList={this.state.userList} />
-          <VideoContainer />
         </section>
+
         <Controls gameStatus={this.state.gameState.status} />
         {this.state.gameState.actor.id === this.state.sessionId && <WordDisplay word={this.state.word} />}
         {this.state.gameState.winner && (
