@@ -4,19 +4,26 @@ import { startGame } from '../../socket';
 class Controls extends React.Component {
   render() {
     return (
-      <div>
-        <span>
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              startGame();
-            }}
-          >
-            Start Game
-          </button>
-        </span>
-        <span>Game Status: {this.props.gameStatus}</span>
-      </div>
+      <>
+        <div className="columns has-text-centered">
+          <div className="column">
+            <div className="title is-3">Game Status: {this.props.gameStatus}</div>
+          </div>
+        </div>
+        <div className="columns has-text-centered">
+          <div className="column is-paddingless">
+            <button
+              className="button is-rounded is-family-custom"
+              onClick={(e) => {
+                e.preventDefault();
+                startGame();
+              }}
+            >
+              Start Game
+            </button>
+          </div>
+        </div>
+      </>
     );
   }
 }

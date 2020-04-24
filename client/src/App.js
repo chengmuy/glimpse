@@ -67,8 +67,8 @@ class App extends React.Component {
         <section className="hero is-info is-bold">
           <header className="hero-body">
             <div className="container">
-              <h1 class="title is-1">Glimpse</h1>
-              <h2 class="subtitle">Did you catch that?</h2>
+              <h1 className="title is-1">Glimpse</h1>
+              <h2 className="subtitle">Did you catch that?</h2>
             </div>
           </header>
         </section>
@@ -84,22 +84,30 @@ class App extends React.Component {
             </div>
           </div>
         </section>
-
-        <Controls gameStatus={this.state.gameState.status} />
-        {this.state.gameState.actor.id === this.state.sessionId && <WordDisplay word={this.state.word} />}
-        {this.state.gameState.winner && (
-          <WinnerDisplay
-            word={this.state.gameState.revealedWord}
-            userId={this.state.gameState.winner}
-            ownId={this.state.sessionId}
-          />
-        )}
-        <Chat chatList={this.state.chatList} ownId={this.state.sessionId} />
-        <TeamList
-          teams={this.state.gameState.teams}
-          ownId={this.state.sessionId}
-          actorId={this.state.gameState.actor.id}
-        />
+        <section className="section is-paddingless">
+          <div className="container">
+            <Controls gameStatus={this.state.gameState.status} />
+            <div className="columns has-text-centered">
+              <div className="column">
+                {this.state.gameState.actor.id === this.state.sessionId && <WordDisplay word={this.state.word} />}
+              </div>
+            </div>
+            {this.state.gameState.winner && (
+              <WinnerDisplay
+                word={this.state.gameState.revealedWord}
+                userId={this.state.gameState.winner}
+                ownId={this.state.sessionId}
+              />
+            )}
+            <Chat chatList={this.state.chatList} ownId={this.state.sessionId} />
+            <TeamList
+              teams={this.state.gameState.teams}
+              ownId={this.state.sessionId}
+              actorId={this.state.gameState.actor.id}
+            />
+          </div>
+        </section>
+        <section className="section"></section>
       </div>
     );
   }

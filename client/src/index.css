@@ -6,6 +6,11 @@ video {
 .is-family-custom {
   font-family: 'Covered By Your Grace', cursive, sans-serif;
 }
+.section-heading {
+  text-align: center;
+  margin-top: 1em;
+  margin-bottom: 6em;
+}
 
 html {
   font-size: 20px;
