@@ -81,6 +81,12 @@ io.on('connection', (socket) => {
     // broadcast
     io.emit('chat', { text, userId: socket.id });
     // if in game, check against secret word & emit gameUpdate
+    if (gs.status === 'active' && text.toLowerCase() === hiddenState.word && socket.id !== gs.actor.id) {
+      console.log(`winner ${socket.id} detected`);
+      io.emit('correctGuess', { word: hiddenState.word, userId: socket.id });
+      setWinner(socket.id);
+      io.emit('gameUpdate', gs);
+    }
   });
 });
 
@@ -96,7 +102,12 @@ function initializeGame(actorId) {
     blue: activeUsers.filter((_, ind) => ind % 2 === 1),
   };
   gs.actor = activeUsers.find((u) => u.id === actorId);
-  hiddenState.word = generateWord();
+  hiddenState.word = generateWord().toLowerCase();
+}
+
+function setWinner(id) {
+  gs.winner = id;
+  gs.revealedWord = hiddenState.word;
 }
 
 module.exports = httpServer;

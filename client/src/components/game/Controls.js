@@ -6,7 +6,14 @@ class Controls extends React.Component {
     return (
       <div>
         <span>
-          <button onClick={startGame}>Start Game</button>
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              startGame();
+            }}
+          >
+            Start Game
+          </button>
         </span>
         <span>Game Status: {this.props.gameStatus}</span>
       </div>
