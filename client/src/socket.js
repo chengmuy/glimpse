@@ -6,6 +6,15 @@ const socket = window.io.connect();
 
 const { RTCPeerConnection, RTCSessionDescription } = window;
 const peerConnection = new RTCPeerConnection();
+var config = {
+  iceServers: [
+    {
+      urls: 'stun:stun.l.google.com:19302',
+    },
+  ],
+};
+peerConnection.setConfiguration(config);
+
 let isAlreadyCalling = false;
 
 const makeCall = async (socketId) => {
