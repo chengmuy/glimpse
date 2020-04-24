@@ -37,14 +37,18 @@ socket.on('answerUser', async ({ answer, callee }) => {
   }
 });
 
-peerConnection.ontrack = function ({ streams: [stream] }) {
-  console.log(`ontrack invoked`);
-  const remoteVideo = document.getElementById('remote-video');
-  if (remoteVideo) {
-    console.log('remote video found');
-    remoteVideo.srcObject = stream;
-  }
-};
+// peerConnection.ontrack = function ({ streams: [stream] }) {
+// peerConnection.ontrack = function (rtcTrackEvent) {
+//   debugger;
+//   console.log(`ontrack invoked`);
+//   // console.log(stream);
+//   let stream = rtcTrackEvent.streams;
+//   const remoteVideo = document.getElementById('remote-video');
+//   if (remoteVideo) {
+//     console.log('remote video found');
+//     remoteVideo.srcObject = stream;
+//   }
+// };
 
 const startGame = () => {
   socket.emit('startGame');
