@@ -1,7 +1,8 @@
 // import socketIOClient from 'socket.io-client';
 // const socket = socketIOClient('localhost:4200');
 
-const socket = window.io.connect('localhost:4200');
+const socket = window.io.connect();
+// const socket = window.io.connect('localhost:4200');
 
 const { RTCPeerConnection, RTCSessionDescription } = window;
 const peerConnection = new RTCPeerConnection();
