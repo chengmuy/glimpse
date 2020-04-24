@@ -42,6 +42,11 @@ function App() {
       console.log('wordUpdate with word ', word);
       setWord(word);
     });
+
+    socket.on('chat', (chat) => {
+      console.log(`received chat ${chat.text} from ${chat.userId}`);
+      setChatList((chatList) => [...chatList, chat]);
+    });
   }, []);
 
   console.log('render app');

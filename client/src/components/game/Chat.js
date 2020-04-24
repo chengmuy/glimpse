@@ -10,6 +10,9 @@ const Chat = ({ chatList }) => {
           <ChatEntry />
         ))}
       </div>
+      <div id="chatInput">
+        <ChatForm />
+      </div>
     </div>
   );
 };

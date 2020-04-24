@@ -60,6 +60,7 @@ io.on('connection', (socket) => {
     socket.to(caller).emit('answerUser', { answer, callee: socket.id });
   });
 
+  // handle game start
   socket.on('startGame', () => {
     console.log('startGame received');
     // reset game state
@@ -75,7 +76,12 @@ io.on('connection', (socket) => {
     // assign to rooms
   });
 
-  // applyGameHandlers(socket);
+  socket.on('chat', (text) => {
+    console.log(`chat text ${text} received from user ${socket.id}`);
+    // broadcast
+    io.emit('chat', { text, userId: socket.id });
+    // if in game, check against secret word & emit gameUpdate
+  });
 });
 
 function resetGame() {

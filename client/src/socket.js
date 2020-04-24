@@ -50,4 +50,8 @@ const startGame = () => {
   socket.emit('startGame');
 };
 
-export { socket as default, makeCall, peerConnection, startGame };
+const sendChat = (text) => {
+  socket.emit('chat', text);
+};
+
+export { socket as default, makeCall, peerConnection, startGame, sendChat };
