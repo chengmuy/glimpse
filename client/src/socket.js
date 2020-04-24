@@ -5,7 +5,6 @@ const socket = window.io.connect();
 // const socket = window.io.connect('localhost:4200');
 
 const { RTCPeerConnection, RTCSessionDescription } = window;
-const peerConnection = new RTCPeerConnection();
 var config = {
   iceServers: [
     {
@@ -13,7 +12,7 @@ var config = {
     },
   ],
 };
-peerConnection.setConfiguration(config);
+const peerConnection = new RTCPeerConnection(config);
 
 let isAlreadyCalling = false;
 
