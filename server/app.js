@@ -106,6 +106,7 @@ function initializeGame(actorId) {
 }
 
 function setWinner(id) {
+  gs.status = 'finished!';
   gs.winner = id;
   gs.revealedWord = hiddenState.word;
 }
