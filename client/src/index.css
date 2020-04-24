@@ -1,5 +1,5 @@
 video {
-  -webkit-transform: scaleX(-1);
+  -webkit-transform: scaeX(-1);
   transform: scaleX(-1);
 }
 
@@ -8,11 +8,6 @@ video {
 }
 
 .hero-body {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-}
-
-.section {
   padding-top: 1rem;
   padding-bottom: 1rem;
 }

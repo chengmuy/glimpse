@@ -86,30 +86,32 @@ class App extends React.Component {
         </section>
         <section className="section is-paddingless">
           <div className="container">
-            <Controls gameStatus={this.state.gameState.status} />
-            {this.state.gameState.actor.id === this.state.sessionId && (
-              <div className="columns has-text-centered">
-                <div className="column">
-                  <WordDisplay word={this.state.word} />
-                </div>
-              </div>
-            )}
-            {this.state.gameState.winner && (
-              <div className="columns">
-                <div className="column">
-                  <WinnerDisplay
-                    word={this.state.gameState.revealedWord}
-                    userId={this.state.gameState.winner}
-                    ownId={this.state.sessionId}
-                  />
-                </div>
-              </div>
-            )}
             <div className="columns">
-              <div className="column is-6">
+              <div className="column is-4">
+                <Controls gameStatus={this.state.gameState.status} />
+                {this.state.gameState.actor.id === this.state.sessionId && (
+                  <div className="columns has-text-centered">
+                    <div className="column">
+                      <WordDisplay word={this.state.word} />
+                    </div>
+                  </div>
+                )}
+                {this.state.gameState.winner && (
+                  <div className="columns">
+                    <div className="column">
+                      <WinnerDisplay
+                        word={this.state.gameState.revealedWord}
+                        userId={this.state.gameState.winner}
+                        ownId={this.state.sessionId}
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
+              <div className="column is-4">
                 <Chat chatList={this.state.chatList} ownId={this.state.sessionId} />
               </div>
-              <div className="column is-6">
+              <div className="column is-4">
                 <TeamList
                   teams={this.state.gameState.teams}
                   ownId={this.state.sessionId}
